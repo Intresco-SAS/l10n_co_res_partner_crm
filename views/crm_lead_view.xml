@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+	<data>
+		<record model="ir.ui.view" id="crm_case_form_view_oppor_extened_l10n_co_res_partner_crm">
+			<field name="name">crm.lead.form.view.extened</field>
+			<field name="inherit_id" ref="crm.crm_case_form_view_oppor"/>
+			<field name="model">crm.lead</field>
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='partner_name']" position="after">
+					<field name="x_name1" placeholder="First Name"/>
+					<field name="x_name2" placeholder="Second Name"/>
+					<field name="x_lastname1" placeholder="Last Name"/>
+					<field name="x_lastname2" placeholder="Second Last Name"/>
+				</xpath>
+				<xpath expr="//field[@name='partner_name']" position="attributes">
+					<attribute name='invisible'>1</attribute>
+				</xpath>
+				<xpath expr="//field[@name='city']" position="before">
+					<field name="xcity" placeholder="City" class="o_address_city"/>
+				</xpath>
+				<xpath expr="//field[@name='city']" position="attributes">
+					<attribute name='invisible'>1</attribute>
+				</xpath>
+				<xpath expr="//field[@name='partner_id']" position="replace">
+					<field name="partner_id"
+                        widget="res_partner_many2one"
+                        string="Customer" domain="[('customer', '=', True)]"
+                        context="{'search_default_customer': 1,
+                            'default_name': partner_name, 'default_street': street,
+                            'default_street2': street2, 'default_city': city,
+                            'default_state_id': state_id, 'default_zip': zip,
+                            'default_country_id': country_id, 'default_function': function,
+                            'default_phone': phone, 'default_mobile': mobile,
+                            'default_email': email_from,
+                            'default_user_id': user_id, 'default_team_id': team_id, 'default_website': website,
+                            'show_vat': True,
+                            'default_x_name1': x_name1,
+                            'default_x_name2': x_name2,
+                            'default_x_lastname1': x_lastname1,
+                            'default_x_lastname2': x_lastname2,
+                            'default_title': title,
+                            'default_xcity': xcity,
+                        }"
+                    />
+				</xpath>
+			</field>
+		</record>
+	</data>
+</odoo>
