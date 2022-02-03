@@ -1,7 +1,8 @@
 <odoo>
     <template id="report_invoce_inherit" inherit_id="l10n_co_tax_extension.report_invoice_document_inherit">
-        <xpath expr="//data[@inherit_id='account.report_invoice_document']" position="after">
-            <xpath expr="//t[@t-set='address']" position="replace"/>
+        <xpath expr="//div[@id='new_information']" position="after">
+            Otro nombre:
+            <span t-field="o.partner_id.other_company" />
         </xpath>
     </template>
 
