@@ -1,0 +1,257 @@
+<odoo>
+    <template id="report_invoce_inherit" inherit_id="l10n_co_tax_extension.report_invoice_document_inherit">
+        <xpath expr="//div[@id='new_information']" position="after">
+            Otro nombre:
+            <span t-field="o.partner_id.other_company" />
+        </xpath>
+    </template>
+
+    <template id="report_pcking_operations_inherit" inherit_id="stock.report_picking">
+        <xpath expr="//t[@t-name='stock.report_picking']" position="replace">
+            <t t-name="stock.report_picking">
+                <t t-call="web.html_container">
+                    <div class="article o_report_layout_standard" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
+                        <!--t t-call="web.external_layout"-->
+
+
+                        <t t-foreach="docs" t-as="o">
+                            <!--t t-call="web.external_layout"-->
+                            <div class="text-center" align="center" style="font-size:16px;border-bottom:1px solid black">
+                                <!--strong><span style="font-size:12px" t-field="o.picking_type_id.warehouse_id.partner_id.name"></span></strong><br/-->
+                                <strong t-field="o.name" class="text-center" />
+                            </div>
+
+                            <div class="page" style="font-size:12px;">
+                                <div class="col-12" style="border-bottom:1px solid black" align="center">
+                                    <b>
+                                        CLIENTE:
+                                        <span t-if="o.partner_id.name">
+                                            <span t-field="o.partner_id.name" />
+                                        </span>
+                                    </b>
+                                    <br />
+                                    <strong t-if="o.partner_id.barcode">
+                                        CÓDIGO:
+                                        <span t-field="o.partner_id.barcode" />
+                                    </strong>
+                                    <br />
+                                    NIT/CC:
+                                    <span t-if="o.partner_id.xidentification">
+                                        <span t-field="o.partner_id.xidentification" />
+                                    </span>
+                                    E-mail:
+                                    <span t-if="o.partner_id.email">
+                                        <span t-field="o.partner_id.email" />
+                                    </span>
+                                    <br />
+                                    Tel:
+                                    <span t-if="o.partner_id.phone">
+                                        <span t-field="o.partner_id.phone" />
+                                        ,
+                                    </span>
+                                    <span t-if="o.partner_id.mobile">
+                                        <span t-field="o.partner_id.mobile" />
+                                    </span>
+                                    <br />
+                                    Dirección:
+                                    <span t-if="o.partner_id.street">
+                                        <span t-field="o.partner_id.street" />
+                                    </span>
+                                    ,
+                                    <span t-if="o.partner_id.street2">
+                                        <span t-field="o.partner_id.street2" />
+                                    </span>
+                                    <br />
+                                    Ciudad:
+                                    <span t-if="o.partner_id.city">
+                                        <span t-field="o.partner_id.city" />
+                                    </span>
+                                     <br />
+                                    Otro nombre:
+                                    <span t-field="o.partner_id.other_company" />
+                                </div>
+                                <div class="clearfix" />
+                                <table class="table table-sm">
+                                    <thead>
+                                        <tr>
+                                            <th t-if="o.origin">
+                                                <strong>Order</strong>
+                                            </th>
+                                            <!--th><strong>State</strong></th-->
+                                            <th name="td_sched_date_h">
+                                                <strong>Fecha.Plan.</strong>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td t-if="o.origin">
+                                                <span t-field="o.origin" />
+                                            </td>
+                                            <!--td>
+                                        <span t-field="o.state"/>
+                                    </td-->
+                                            <td name="td_sched_date">
+                                                <span t-field="o.scheduled_date" />
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                Persona que recibió _____________________
+                                <br />
+                                C.C.___________________________________
+                                <br />
+                                <br />
+                                Fecha de Recepción ______________________
+                                <br />
+                                Hora de Recepción ______________________
+                                <br />
+                                <br />
+                                Transportador ___________________________
+                                <br />
+
+                                <t t-set="no_reserved_product" t-value="o.move_lines.filtered(lambda x: x.product_uom_qty != x.reserved_availability and x.move_line_ids and x.state!='done')" />
+                                <p t-if="o.state in ['draft', 'waiting', 'confirmed'] or no_reserved_product">
+                                    <i class="fa fa-exclamation-triangle" />
+                                    All products could not be reserved. Click on the "Check Availability" button to try to reserve products
+                                </p>
+                                <p t-field="o.note" />
+                            </div>
+                        </t>
+                    </div>
+                </t>
+            </t>
+        </xpath>
+    </template>
+
+    <template id="report_deliveryslip_inherit" inherit_id="stock.report_delivery_document">
+        <xpath expr="//t[@t-name='stock.report_delivery_document']" position="replace">
+            <t t-name="stock.report_delivery_document">
+                <t t-call="web.html_container">
+                    <!--t t-call="web.external_layout"-->
+                    <div class="article o_report_layout_standard" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
+                        <t t-set="o" t-value="o.with_context(lang=o.partner_id.lang)" />
+                        <t t-set="partner" t-value="o.partner_id or (o.move_lines and o.move_lines[0].partner_id) or False" />
+                        <t t-if="partner" name="partner_header">
+                            <!--t t-set="address">
+                        <div t-esc="partner" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;, &quot;phone&quot;], &quot;no_marker&quot;: True}"/>
+                   </t-->
+                            <div class="text-center" align="center" style="font-size:18px;border-bottom:1px solid black">
+
+                                <strong>COMERCIALIZADORA BUSTOS Y GONZALEZ S.A.S.</strong>
+                                <br />
+                                NIT: 901.488.384-6
+                                <br />
+                                <i class="fa fa-building-o" />
+                                CL 97 93 08 BRR PUEBLO NUEVO - APARTADÓ
+                                <br />
+                                CEL. 304 4411263
+                            </div>
+                            <div class="col-12" style="font-size:16px;border-bottom:1px solid black" align="center">
+                                <b>
+                                    CLIENTE:
+                                    <span t-if="o.partner_id.name">
+                                        <span t-field="o.partner_id.name" />
+                                    </span>
+                                </b>
+                                <br />
+                                <strong t-if="o.partner_id.barcode">
+                                    CÓDIGO:
+                                    <span t-field="o.partner_id.barcode" />
+                                </strong>
+                                <br />
+                                NIT/CC:
+                                <span t-if="o.partner_id.xidentification">
+                                    <span t-field="o.partner_id.xidentification" />
+                                </span>
+                                <br />
+                                E-mail:
+                                <span t-if="o.partner_id.email">
+                                    <span t-field="o.partner_id.email" />
+                                </span>
+                                <br />
+                                Tel:
+                                <span t-if="o.partner_id.phone">
+                                    <span t-field="o.partner_id.phone" />
+                                    ,
+                                </span>
+                                <span t-if="o.partner_id.mobile">
+                                    <span t-field="o.partner_id.mobile" />
+                                </span>
+                                <br />
+                                Dirección:
+                                <span t-if="o.partner_id.street">
+                                    <span t-field="o.partner_id.street" />
+                                </span>
+                                ,
+                                <span t-if="o.partner_id.street2">
+                                    <span t-field="o.partner_id.street2" />
+                                </span>
+                                <br />
+                                Ciudad:
+                                <span t-if="o.partner_id.state_id">
+                                    <span t-field="o.partner_id.state_id" />
+                                </span>
+                                ,
+                                <span t-if="o.partner_id.xcity">
+                                    <span t-field="o.partner_id.xcity" />
+                                </span>
+                                <br />
+                                Otro nombre:
+                                <span t-if="o.partner_id.other_company">
+                                    <span t-field="o.partner_id.other_company" />
+                                </span>
+                                <br />
+
+                            </div>
+                        </t>
+
+                        <div class="page" align="center">
+                            <h2>
+
+                                <span t-field="o.name" />
+
+                            </h2>
+                            <table class="table table-sm" style="font-size:16px">
+                                <thead>
+                                    <tr>
+                                        <th t-if="o.origin">
+                                            <strong>Order</strong>
+                                        </th>
+                                        <th name="td_sched_date_h">
+                                            <strong>Date</strong>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td t-if="o.origin">
+                                            <span t-field="o.origin" />
+                                        </td>
+                                        <td name="td_sched_date">
+                                            <t t-if="o.state == 'done'">
+                                                <span t-field="o.date_done" />
+                                            </t>
+                                            <t t-if="o.state != 'done'">
+                                                <span t-field="o.scheduled_date" />
+                                            </t>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <p>
+                                <t t-if="o.backorder_ids and o.backorder_ids.filtered(lambda x: x.state not in ('done', 'cancel'))">
+                            All items couldn't be shipped, the remaining ones will be shipped as soon as they become available.
+                        </t>
+                            </p>
+                        </div>
+                        <!--/t-->
+                    </div>
+                </t>
+            </t>
+
+
+        </xpath>
+    </template>
+
+</odoo>

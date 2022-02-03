@@ -10,5 +10,7 @@
     ],
     'data': [
         'views/crm_lead_view.xml',
+        'views/template_quantation.xml',
+        'views/template_invoice.xml'
     ],
 }

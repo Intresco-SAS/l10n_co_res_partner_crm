@@ -21,6 +21,7 @@ class CrmLead(models.Model):
             if self.xcity.country_id:
                 self.country_id = self.xcity.country_id.id
 
+#custom sensations vibrants
 class OtherCompanyRespartner(models.Model):
 
     _inherit = 'res.partner'
