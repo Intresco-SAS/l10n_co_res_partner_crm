@@ -8,7 +8,7 @@
                     </b>
                     <br />
                     Cliente :
-                    <spt-field="o.partner_id.name" />
+                    <span ft-field="o.partner_id.name" />
                     <br />
                     <strong t-if="o.partner_id.barcode">
                         CÓDIGO:
