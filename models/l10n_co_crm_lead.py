@@ -11,6 +11,7 @@ class CrmLead(models.Model):
     x_lastname1 = fields.Char("Last Name")
     x_lastname2 = fields.Char("Second Last Name")
     xcity = fields.Many2one('res.country.state.city', "Municipality", default=lambda self: self.env.user.company_id.partner_id.xcity)
+    other_company = fields.Char(string="Otro nombre")
 
     @api.onchange('xcity')
     def _onchange_xcity(self):
@@ -19,3 +20,9 @@ class CrmLead(models.Model):
                 self.state_id = self.xcity.state_id.id
             if self.xcity.country_id:
                 self.country_id = self.xcity.country_id.id
+
+class OtherCompanyRespartner(models.Model):
+
+    _inherit = 'res.partner'
+
+    other_company = fields.Char(string="Otro nombre")
