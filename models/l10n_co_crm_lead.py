@@ -6,10 +6,10 @@ class CrmLead(models.Model):
 
     _inherit = 'crm.lead'
 
-    x_name1 = fields.Char("First Name")
-    x_name2 = fields.Char("Second Name")
-    x_lastname1 = fields.Char("Last Name")
-    x_lastname2 = fields.Char("Second Last Name")
+    x_name1 = fields.Char("Primer Nombre")
+    x_name2 = fields.Char("Segundo Nombre")
+    x_lastname1 = fields.Char("Primer Apellido")
+    x_lastname2 = fields.Char("Segundo Apellido")
     xcity = fields.Many2one('res.country.state.city', "Municipality", default=lambda self: self.env.user.company_id.partner_id.xcity)
 
     @api.onchange('xcity')
