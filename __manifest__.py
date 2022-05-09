@@ -2,7 +2,7 @@
 {
     'name': 'Terceros - Colombia (CRM)',
     'category': 'Localization',
-    'version': '12.0',
+    'version': '14.0.1',
     'summary': 'Terceros Colombia: Extendido de Partner / '
                'Modulo de CRM - Odoo 12.0',
     'depends': [
