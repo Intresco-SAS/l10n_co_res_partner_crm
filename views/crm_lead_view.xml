@@ -37,7 +37,7 @@
 						<field name="companyBrandName" placeholder="Brand Name of the Company?"
 							attrs="{'invisible':['|',('personType', '=', '1'),('company_type', '=', 'person')]}" />
 						<field name="pos_name" string="Nombre/Dirección de punto de venta" placeholder="Point of Sales Name or Direction" attrs="{'invisible':[('is_company', '=', False)]}"/>
-						<field name="xcity"/>
+						<field name="xcity" string="Ciudad"/>
 						<field name="x_name1" placeholder="First Name" default_focus="1" attrs="{'invisible':[('is_company', '=', True)]}" />
 						<!-- attrs="{'invisible':[('is_company', '=', True)]}"/ -->	
 						<field name="x_name2" placeholder="Second Name" attrs="{'invisible':[('is_company', '=', True)]}"/>
