@@ -37,13 +37,14 @@
 						<field name="companyBrandName" placeholder="Brand Name of the Company?"
 							attrs="{'invisible':['|',('personType', '=', '1'),('company_type', '=', 'person')]}" />
 						<field name="pos_name" string="Nombre/Dirección de punto de venta" placeholder="Point of Sales Name or Direction" attrs="{'invisible':[('is_company', '=', False)]}"/>
-						<field name="x_name1" placeholder="First Name" default_focus="1" />
+						<field name="xcity"/>
+						<field name="x_name1" placeholder="First Name" default_focus="1" attrs="{'invisible':[('is_company', '=', True)]}" />
 						<!-- attrs="{'invisible':[('is_company', '=', True)]}"/ -->	
-						<field name="x_name2" placeholder="Second Name" />
+						<field name="x_name2" placeholder="Second Name" attrs="{'invisible':[('is_company', '=', True)]}"/>
 						<!-- attrs="{'invisible':['|',('personType', '=', '2'), ('type', '=', 'delivery')], 'invisible':[('is_company', '=', True)]}" -->	
-						<field name="x_lastname1" placeholder="Last Name" />
+						<field name="x_lastname1" placeholder="Last Name" attrs="{'invisible':[('is_company', '=', True)]}"/>
 						<!-- attrs="{'invisible':[('is_company', '=', True)]}"/> -->	
-						<field name="x_lastname2" placeholder="Second Last Name"/>
+						<field name="x_lastname2" placeholder="Second Last Name" attrs="{'invisible':[('is_company', '=', True)]}"/>
 						<!-- attrs="{'invisible':['|',('personType', '=', '2'), ('type', '=', 'delivery')], 'invisible':[('is_company', '=', True)]}" /> -->	
 						<field name="xbirthday" string="Fecha de nacimiento" attrs="{'invisible':[('is_company', '=', True)]}"/>
 					</group>
